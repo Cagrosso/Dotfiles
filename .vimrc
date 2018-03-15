@@ -3,37 +3,61 @@ execute pathogen#infect()
 filetype plugin indent on   " required
 syntax on
 
-" highlight matching search terms
+" Highlight matching search terms
 set hlsearch
 
-" fix backspace to actually backspace...
+" Fix backspace to actually backspace...
 set backspace=indent,eol,start
 
-" shows last command bottom right of vim
+" Shows last command bottom right of vim
 set showcmd
 
-" line numbers
+" Lightline status bar https://github.com/itchyny/lightline.vim
+if !has('gui_running')
+    set t_Co=256
+endif
+
+" Stop vim from saying INSERT, VISUAL, etc when lightline already does this
+set noshowmode
+
+let g:lightline = {
+      \ 'colorscheme': 'molokai',
+      \ }
+" Lightline status bar https://github.com/itchyny/lightline.vim
+
+" Line numbers
 set number
+set relativenumber
+
+" Change vim split to full block
+set fillchars+=vert:█
 
 " Allows you to switch from unsaved buffer w/o saving it first. Keeps undo
 " history for multiple files. Keep swap files if computer crashes
 set hidden
 
-" highlight cursor line
+" Highlight cursor line
 set cursorline
 
-" colorscheme
+" Colorscheme
 if &term == "screen"
     set t_Co=256
 endif
 colorscheme molokai
 
-" set tab size
+" Set tab size
 set tabstop=2
 set shiftwidth=2
 set expandtab
-
 set autoindent
+set smarttab
+set smartindent
+
+" Set global replace by default
+set gdefault
+
+" Set highlighting of matching parenthesis
+set showmatch
 
 " Map j and k to not skip wrapped lines
 nnoremap j gj
@@ -46,10 +70,10 @@ nnoremap <C-L> :nohl<CR><C-L>
 " NERDTree config
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 
 " NERDCommenter config
+
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
